@@ -496,6 +496,36 @@ ul { list-style: none; }
   line-height: 1.4;
 }
 
+/* Wide card spanning full grid */
+.info-card--wide {
+  grid-column: 1 / -1;
+}
+.info-credentials {
+  margin: 10px 0 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.info-credentials li {
+  font-size: .78rem;
+  color: var(--text-mid);
+  line-height: 1.5;
+  padding-left: 14px;
+  position: relative;
+}
+.info-credentials li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-weight: 700;
+}
+.info-credentials li strong {
+  color: var(--teal-dark);
+}
+
 .profile-quote {
   border-left: 3px solid var(--gold);
   padding: 12px 20px;
