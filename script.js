@@ -206,10 +206,6 @@
       });
     });
 
-    // Pausar al pasar el ratón
-    carousel.addEventListener('mouseenter', function () { clearInterval(timer); });
-    carousel.addEventListener('mouseleave', startTimer);
-
     // Soporte de deslizamiento táctil
     var touchStartX = 0;
     carousel.addEventListener('touchstart', function (e) {
