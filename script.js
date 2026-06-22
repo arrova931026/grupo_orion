@@ -174,6 +174,58 @@
     }
   });
 
+  // ── Carrusel de recomendaciones ─────────────────────────────
+  (function initRecCarousel() {
+    var track    = document.getElementById('rec-track');
+    var carousel = document.getElementById('rec-carousel');
+    var dots     = document.querySelectorAll('.rec-dot');
+    var total    = dots.length;
+    var current  = 0;
+    var timer;
+
+    if (!track || !total) return;
+
+    function goTo(idx) {
+      current = (idx + total) % total;
+      track.style.transform = 'translateX(-' + (current * 100) + '%)';
+      dots.forEach(function (d, i) {
+        d.classList.toggle('active', i === current);
+        d.setAttribute('aria-selected', String(i === current));
+      });
+    }
+
+    function startTimer() {
+      clearInterval(timer);
+      timer = setInterval(function () { goTo(current + 1); }, 6000);
+    }
+
+    dots.forEach(function (dot) {
+      dot.addEventListener('click', function () {
+        goTo(Number(dot.dataset.idx));
+        startTimer();
+      });
+    });
+
+    // Pausar al pasar el ratón
+    carousel.addEventListener('mouseenter', function () { clearInterval(timer); });
+    carousel.addEventListener('mouseleave', startTimer);
+
+    // Soporte de deslizamiento táctil
+    var touchStartX = 0;
+    carousel.addEventListener('touchstart', function (e) {
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+    carousel.addEventListener('touchend', function (e) {
+      var dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 50) {
+        goTo(dx < 0 ? current + 1 : current - 1);
+        startTimer();
+      }
+    }, { passive: true });
+
+    startTimer();
+  })();
+
   // ── Init ──────────────────────────────────────────────────────
   handleScroll();
   highlightActiveLink();
