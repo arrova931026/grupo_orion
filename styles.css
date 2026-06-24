@@ -309,6 +309,96 @@ ul { list-style: none; }
   color: #fff;
 }
 
+/* ── Modal de Construcción ───────────────────────────────────────── */
+.construccion-overlay {
+  z-index: 3000; /* Por encima del resto de modales */
+}
+.construccion-card {
+  max-width: 460px;
+  padding: 44px 36px 36px;
+  border-top: 5px solid var(--gold);
+}
+.construccion-icon {
+  font-size: 2.8rem;
+  margin-bottom: 14px;
+}
+.construccion-body {
+  color: var(--text-mid);
+  font-size: .97rem;
+  line-height: 1.75;
+  margin-bottom: 28px;
+}
+/* Signos de pesos estilizados */
+.price-signs {
+  display: inline-flex;
+  gap: 2px;
+  vertical-align: middle;
+  margin: 0 3px;
+}
+.price-signs .ps {
+  font-family: var(--font-head);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-shadow: 0 1px 4px rgba(201,160,48,.45);
+  animation: psShimmer 2s ease-in-out infinite alternate;
+}
+.price-signs .ps:nth-child(2) { animation-delay: .25s; }
+.price-signs .ps:nth-child(3) { animation-delay: .5s;  }
+@keyframes psShimmer {
+  from { color: var(--gold);       text-shadow: 0 1px 4px rgba(201,160,48,.3);  }
+  to   { color: var(--gold-light); text-shadow: 0 2px 10px rgba(232,201,106,.7); }
+}
+.construccion-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.construccion-btn-probar {
+  background: var(--teal-dark);
+  color: var(--white);
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+.construccion-btn-probar:hover {
+  background: var(--teal-mid);
+}
+.construccion-divider {
+  color: var(--text-mid);
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin: 14px 0;
+  position: relative;
+  text-align: center;
+}
+.construccion-divider::before,
+.construccion-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 28%;
+  height: 1px;
+  background: #dde3e8;
+}
+.construccion-divider::before { left: 0; }
+.construccion-divider::after  { right: 0; }
+.construccion-btn-costos {
+  width: 100%;
+  margin-top: 0;
+}
+/* Responsivo */
+@media (max-width: 480px) {
+  .construccion-card {
+    padding: 36px 22px 28px;
+  }
+  .construccion-body {
+    font-size: .92rem;
+  }
+}
+
 /* ════════════════════════════════════════════════════════════════
 ════════════════════════════════════════════════════════════════ */
 .hero {
@@ -381,10 +471,39 @@ ul { list-style: none; }
   color: var(--gold);
   cursor: pointer;
   font-family: var(--font-body);
+  position: relative;
+  overflow: hidden;
+}
+/* Brillo diagonal que recorre el botón de izquierda a derecha */
+.btn-hero-outline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -130%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255,255,255,.18) 40%,
+    rgba(255,255,255,.55) 50%,
+    rgba(255,255,255,.18) 60%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  animation: btnShimmer 1.8s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes btnShimmer {
+  0%          { left: -130%; }
+  55%, 100%   { left:  130%; }
 }
 .btn-hero-outline:hover {
   background: var(--gold);
   color: var(--teal-dark);
+}
+.btn-hero-outline:hover::before {
+  animation-play-state: paused;
 }
 
 /* ════════════════════════════════════════════════════════════════

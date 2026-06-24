@@ -226,3 +226,42 @@
   handleScroll();
   highlightActiveLink();
 })();
+
+/* ═══════════════════════════════════════════════════════
+   Modal de Construcción
+   ─────────────────────────────────────────────────────
+   Bandera: cambiar a false para desactivar el modal
+   ═══════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+
+  var CONSTRUCCION_MODAL_ACTIVO = true; // ← true = mostrar | false = ocultar
+
+  if (!CONSTRUCCION_MODAL_ACTIVO) return;
+
+  var overlay      = document.getElementById('construccion-modal');
+  var btnProbar    = document.getElementById('btn-probar-sitio');
+
+  if (!overlay) return;
+
+  // Mostrar al cargar la página
+  document.body.style.overflow = 'hidden';
+  overlay.classList.add('show');
+
+  function cerrarConstruccion() {
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
+  // Botón "Probar sitio web"
+  if (btnProbar) {
+    btnProbar.addEventListener('click', cerrarConstruccion);
+  }
+
+  // Tecla Escape
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('show')) {
+      cerrarConstruccion();
+    }
+  });
+})();
